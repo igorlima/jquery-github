@@ -94,26 +94,26 @@
       var date = new Date(repo.pushed_at);
       var pushed_at = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
 
-      var $widget = $($.parseHTML(' \
-        <div class="github-box">  \
-            <div class="github-box-header"> \
-                <h3> \
-                    <a href="' + repo.url.replace('api.','').replace('repos/','') + '">' + repo.name + '</a> \
-                </h3> \
-                <div class="github-stats"> \
-                    <a class="repo-watchers" href="' + repo.url.replace('api.','').replace('repos/','') + '/watchers">' + repo.watchers + '</a> \
-                    <a class="repo-forks" href="' + repo.url.replace('api.','').replace('repos/','') + '/forks">' + repo.forks + '</a> \
-                </div> \
-            </div> \
-            <div class="github-box-content"> \
-                <p>' + repo.description + ' &mdash; <a href="' + repo.url.replace('api.','').replace('repos/','') + '#readme">Read More</a></p> \
-            </div> \
-            <div class="github-box-download"> \
-                <p class="repo-update">Latest commit to <strong>master</strong> on ' + pushed_at + '</p> \
-                <a class="repo-download" href="' + repo.url.replace('api.','').replace('repos/','') + '/zipball/master">Download as zip</a> \
-            </div> \
-        </div> \
-      '));
+      var $widget = $(
+        "<div class='github-box'>" +
+            "<div class='github-box-header'>" +
+                "<h3>" +
+                    "<a href='" + repo.url.replace('api.','').replace('repos/','') + "'>" + repo.name + "</a>" +
+                "</h3>" +
+                "<div class='github-stats'>" +
+                    "<a class='repo-watchers' href='" + repo.url.replace('api.','').replace('repos/','') + "/watchers'>" + repo.watchers + "</a>" +
+                    "<a class='repo-forks' href='" + repo.url.replace('api.','').replace('repos/','') + "/forks'>" + repo.forks + "</a>" +
+                "</div>" +
+            "</div>" +
+            "<div class='github-box-content'>" +
+                "<p>" + repo.description + " &mdash; <a href='" + repo.url.replace('api.','').replace('repos/','') + "#readme'>Read More</a></p>" +
+            "</div>" +
+            "<div class='github-box-download'>" +
+                "<p class='repo-update'>Latest commit to <strong>master</strong> on ' + pushed_at + '</p>" +
+                "<a class='repo-download' href='" + repo.url.replace('api.','').replace('repos/','') + "/zipball/master'>Download as zip</a>" +
+            "</div>" +
+        "</div>"
+      );
 
       self.appendTemplate($widget);
 
@@ -128,10 +128,10 @@
     // preventing against multiple instantiations
     $.fn[pluginName] = function ( options ) {
         return this.each(function () {
-            if (!$.data(this, 'plugin_' + pluginName)) {
-                $.data(this, 'plugin_' + pluginName, new Plugin( this, options ));
+            if (!$(this).data('plugin_' + pluginName)) {
+                $(this).data('plugin_' + pluginName, new Plugin( this, options ));
             }
         });
     };
 
-}(jQuery, window));
+}(window.jQuery || window.Zepto, window));
